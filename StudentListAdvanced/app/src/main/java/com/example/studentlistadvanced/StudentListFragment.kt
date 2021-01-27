@@ -42,7 +42,7 @@ class StudentListFragment : Fragment(), OnStudentListener {
             insertData()
         }
         binding.restoreBtn.setOnClickListener {
-            adapter.appendList(db.restore())
+            restoreLast()
         }
         return view
 
@@ -53,6 +53,13 @@ class StudentListFragment : Fragment(), OnStudentListener {
         super.onViewCreated(view, savedInstanceState)
         setAdapter()
 
+    }
+
+    private fun restoreLast() {
+        val restored = db.restoreOne()
+        if (restored != null) {
+            adapter.appendOneStudent(restored)
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -94,9 +101,10 @@ class StudentListFragment : Fragment(), OnStudentListener {
     }
 
     override fun onStudentClick(student: Student) {
+
         findNavController().navigate(
             StudentListFragmentDirections.actionStudentListFragmentToStudentDetailsFragment(
-                student
+                student.id
             )
         )
     }

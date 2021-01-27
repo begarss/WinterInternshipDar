@@ -14,6 +14,7 @@ class StudentDetailsFragment : Fragment() {
     val args: StudentDetailsFragmentArgs by navArgs()
     private var _binding: FragmentStudentDetailsBinding? = null
     private val binding get() = _binding!!
+    private var db = StudentDataSource.getDataSource()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +32,8 @@ class StudentDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val student = args.student
+        val studentId = args.studentId
+        val student = db.getStudentById(studentId)
         binding.detId.text = student.id.toString()
         binding.detName.text = student.name
         binding.detSurname.text = student.surname

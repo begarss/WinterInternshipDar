@@ -3,7 +3,6 @@ package com.example.studentlistadvanced
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
-import androidx.room.Room
 import com.example.studentlistadvanced.model.Student
 import java.util.*
 import kotlin.collections.ArrayList
@@ -51,7 +50,7 @@ class StudentDataSource {
     }
 
     fun isStudentExist(student: Student): Boolean {
-        return mainList.contains(student)
+        return mainList.contains(student) || deletedList.contains(student)
     }
 
     fun getAllStudents(): ArrayList<Student> {
@@ -60,6 +59,12 @@ class StudentDataSource {
         var a = arrayListOf<Student>()
         a = ArrayList(mainList.toList())
         return a
+    }
+
+    fun getStudentById(id :Int):Student{
+        return mainList.filter {
+            it.id == id
+        }.first()
     }
 
     fun deleteStudent(student: Student) {
@@ -74,7 +79,10 @@ class StudentDataSource {
                 deletedList.add(student)
             }
         }
-        Log.d("LLL", "deleteStudent: $studentsDeleted  last = ${deletedList.last().name} first = ${deletedList.first().name}  }")
+        Log.d(
+            "LLL",
+            "deleteStudent: $studentsDeleted  last = ${deletedList.last().name} first = ${deletedList.first().name}  }"
+        )
     }
 
     fun restore(): ArrayList<Student> {
@@ -86,6 +94,20 @@ class StudentDataSource {
         deletedList.clear()
 
         return a as ArrayList<Student>
+    }
+
+    fun restoreOne(): Student? {
+        var s : Student? = null
+        if (deletedList.isEmpty())
+            return null
+        else {
+            studentsDeleted--
+            s = deletedList.last()
+            mainList.add(s)
+            deletedList.remove(s)
+        }
+
+        return s
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

@@ -20,7 +20,7 @@
         android:label="fragment_student_details"
         tools:layout="@layout/fragment_student_details" >
         <argument
-            android:name="student"
-            app:argType="com.example.studentlistadvanced.model.Student" />
+            android:name="studentId"
+            app:argType="integer" />
     </fragment>
 </navigation>

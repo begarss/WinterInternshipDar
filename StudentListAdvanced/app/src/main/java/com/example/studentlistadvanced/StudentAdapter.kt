@@ -45,6 +45,11 @@ class StudentAdapter internal constructor(
         notifyDataSetChanged()
     }
 
+    fun appendOneStudent(student: Student){
+        mainList.add(student)
+        notifyDataSetChanged()
+    }
+
     fun deleteStudent(student: Student, position: Int) {
         mainList.remove(student)
         notifyItemRemoved(position)
