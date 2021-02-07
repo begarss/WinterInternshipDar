@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/firstFragment">
+
+    <fragment
+        android:id="@+id/firstFragment"
+        android:name="com.example.tictactoe.FirstFragment"
+        android:label="fragment_first"
+        tools:layout="@layout/fragment_first">
+        <action
+            android:id="@+id/action_firstFragment_to_namesFragment"
+            app:destination="@id/namesFragment" />
+        <action
+            android:id="@+id/action_firstFragment_to_playerRecords"
+            app:destination="@id/playerRecords" />
+    </fragment>
+    <fragment
+        android:id="@+id/namesFragment"
+        android:name="com.example.tictactoe.NamesFragment"
+        android:label="fragment_names"
+        tools:layout="@layout/fragment_names">
+        <action
+            android:id="@+id/action_namesFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="com.example.tictactoe.GameFragment"
+        android:label="fragment_game"
+        tools:layout="@layout/fragment_game">
+        <action
+            android:id="@+id/action_gameFragment_to_playerRecords"
+            app:destination="@id/playerRecords" />
+    </fragment>
+    <fragment
+        android:id="@+id/playerRecords"
+        android:name="com.example.tictactoe.PlayerRecords"
+        android:label="fragment_player_records"
+        tools:layout="@layout/fragment_player_records">
+        <action
+            android:id="@+id/clearBackStack"
+            app:destination="@id/firstFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>
